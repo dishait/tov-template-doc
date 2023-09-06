@@ -1,0 +1,13 @@
+{
+  "name": "tov-template-doc",
+  "description": "tov-template 的文档",
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "preview": "vitepress preview"
+  },
+  "devDependencies": {
+    "vitepress": "1.0.0-rc.10"
+  }
+}
