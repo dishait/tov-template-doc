@@ -6,6 +6,7 @@ export default defineConfig({
   description: "vite + vue3 + ts 开箱即用现代开发模板",
   lang: "zh-CN",
   lastUpdated: true,
+  metaChunk: true,
   head: [
     [
       "meta",
