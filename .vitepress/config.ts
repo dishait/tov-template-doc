@@ -7,6 +7,7 @@ export default defineConfig({
   lang: "zh-CN",
   lastUpdated: true,
   metaChunk: true,
+  srcExclude: ['README.md'],
   head: [
     [
       "meta",
