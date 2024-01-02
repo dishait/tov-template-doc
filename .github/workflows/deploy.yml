@@ -1,0 +1,36 @@
+name: deploy tov-template-doc.deno.dev
+
+on:
+  push:
+    branches: main
+  pull_request:
+    branches: main
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    env: 
+      DOMIN: dishait.deno.dev
+    permissions:
+      id-token: write # Needed for auth with Deno Deploy
+      contents: read # Needed to clone the repository
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Build step
+        run: npm install && npm run build # 📝 Update the build command(s)
+
+      - name: Deploy to Deno Deploy
+        uses: denoland/deployctl@v1
+        with:
+          project: "tov-template-doc"
+          entrypoint: https://raw.githubusercontent.com/dishait/static/main/hono.ts
+          root: docs/.vitepress/dist
