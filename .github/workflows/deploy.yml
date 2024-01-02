@@ -33,4 +33,4 @@ jobs:
         with:
           project: "tov-template-doc"
           entrypoint: https://raw.githubusercontent.com/dishait/static/main/hono.ts
-          root: docs/.vitepress/dist
+          root: .vitepress/dist
