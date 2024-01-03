@@ -50,7 +50,6 @@ export default defineConfig({
       { icon: "github", link: "https://github.com/dishait/tov-template" },
     ],
     footer: {
-      // process.env.DOMIN 支持多域名部署
       copyright: `Copyright © 2023 tov-template-doc.deno.dev All rights reserved 帝莎编程学院 版权所有`,
     },
   },
