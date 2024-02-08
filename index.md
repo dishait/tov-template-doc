@@ -12,7 +12,7 @@ hero:
   actions:
     - theme: brand
       text: 起步
-      link: /guide/getting-started
+      link: /guide/起步
     - theme: alt
       text: GitHub
       link: https://github.com/dishait/tov-template

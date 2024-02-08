@@ -1,4 +1,46 @@
 import { defineConfig } from "vitepress";
+import fg from "fast-glob";
+
+function sortFiles(files: string[]) {
+  const reg = /(?<=\/)\d*(?=\.)/g;
+
+  const caches = {};
+  function getOrders(v) {
+    if (!caches[v]) {
+      caches[v] = Array.from(v.match(reg) ?? []).map(Number);
+    }
+    return caches[v];
+  }
+
+  files.sort((a: string, b: string) => {
+    if (a.endsWith("index.md")) {
+      return 1;
+    }
+    const [l1, l2] = getOrders(a);
+    const [r1, r2] = getOrders(b);
+    if (l1 > r1) {
+      return 1;
+    }
+    if (l1 < r1) {
+      return -1;
+    }
+
+    if (l2 > r2) {
+      return 1;
+    }
+    return -1;
+  });
+
+  return files;
+}
+
+const guideRoutes = sortFiles(fg.sync("guide/**/*.md")).map((file) => {
+  const path = file.replace("guide/", "").replace(".md", "");
+  return {
+    text: path.replace(/\d*\.?/, ""),
+    link: `/guide/${path}`,
+  };
+});
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -27,24 +69,18 @@ export default defineConfig({
   ],
   themeConfig: {
     logo: "/logo.png",
+    docFooter: {
+      prev: "上一页",
+      next: "下一页",
+    },
     nav: [
-      { text: "指南", link: "/guide/what-is-tov-template" },
-      { text: "分享", link: "/shared" },
+      { text: "指南", link: guideRoutes[0].link },
     ],
     search: {
       provider: "local",
     },
     sidebar: {
-      "/guide/": {
-        base: "/guide/",
-        items: [
-          { text: "起步", link: "/getting-started" },
-          {
-            text: "tov-template 是什么？",
-            link: "/what-is-tov-template",
-          },
-        ],
-      },
+      "/guide/": [...guideRoutes],
     },
     socialLinks: [
       { icon: "github", link: "https://github.com/dishait/tov-template" },
