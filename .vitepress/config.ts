@@ -66,6 +66,13 @@ export default defineConfig({
         href: "/logo.png",
       },
     ],
+    [
+      "link",
+      {
+        href: "/global.css",
+        rel: "stylesheet",
+      },
+    ],
   ],
   themeConfig: {
     logo: "/logo.png",
